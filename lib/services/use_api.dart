@@ -38,4 +38,17 @@ class UseAPI {
 
     return false;
   }
+
+  Future<void> createItem(String name, int quantity) async {
+    var uri = Uri.parse("http://10.0.2.2:8081/items/create");
+    await client.put(uri,
+      headers: <String, String> {
+        "content-type": "application/json"
+      },
+      body: jsonEncode(<String, Object>{
+        "name": name,
+        "quantity": quantity,
+      })
+    );
+  }
 }

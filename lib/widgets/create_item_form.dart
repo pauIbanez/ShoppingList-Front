@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_list/services/use_api.dart';
 
 
 class CreateItemForm extends StatefulWidget {
-  const CreateItemForm({Key? key}) : super(key: key);
+  const CreateItemForm({Key? key, required this.changePage}) : super(key: key);
 
+  final void Function() changePage;
   @override
   State<CreateItemForm> createState() => _CreateItemFormState();
 }
@@ -57,24 +59,32 @@ class _CreateItemFormState extends State<CreateItemForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          _buildNameField(),
-          _buildQuantityField(),
-          SizedBox(height: 100),
-          ElevatedButton(
-            onPressed: (() {
-              if(!_formKey.currentState!.validate()){
-                return;
-              }
+    return Container(
+      margin: const EdgeInsets.all(50),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            _buildNameField(),
+            const SizedBox(height: 20),
+            _buildQuantityField(),
+            const SizedBox(height: 200),
+            ElevatedButton(
+              onPressed: (() async {
+                if(!_formKey.currentState!.validate()){
+                  return;
+                }
 
-              _formKey.currentState!.save();
-            }),
-            child: const Text("Create", style: TextStyle(color: Colors.white))
-          )
-        ],
+                _formKey.currentState!.save();
+
+                await UseAPI().createItem(_name, _quantity);
+
+                widget.changePage();
+              }),
+              child: const Text("Create", style: TextStyle(color: Colors.white))
+            )
+          ],
+        )
       )
     );
   }

@@ -34,10 +34,10 @@ class _MyAppState extends State<MyApp> {
 
     switch (currentPage) {
       case "create":
-        currentPageWidget = const CreateItemPage();
+        currentPageWidget = CreateItemPage(changePage: () => changePage("list"),);
         break;
       default:
-        currentPageWidget = ListPage(changePage: changePage);
+        currentPageWidget = ListPage(changePage: () => changePage("create"));
     }
 
     return MaterialApp(
