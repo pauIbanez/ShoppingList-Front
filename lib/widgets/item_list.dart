@@ -35,16 +35,16 @@ class _ItemListState extends State<ItemList> {
     }
   }
 
-  checkItem(Item item) async {
+  checkItem(Item item, int itemIndex) async {
 
-    print(item.name);
-    await UseAPI().toggleItem(item);
+    bool sucessfull = await UseAPI().toggleItem(item);
 
-    setState(() {
-      isLoaded = false;
-    });
-
-    getData();
+    if (sucessfull) {
+      setState(() {
+        items![itemIndex].checked = !items![itemIndex].checked;
+      });
+    }
+    
   }
 
   @override
@@ -58,7 +58,7 @@ class _ItemListState extends State<ItemList> {
         itemBuilder: (context, index) {
           Item item = items![index];
 
-          return ListItem(name: item.name, quantity: item.quantity.toString(), id: item.id, checked: item.checked, onClick: () { checkItem(item); });
+          return ListItem(name: item.name, quantity: item.quantity.toString(), id: item.id, checked: item.checked, onClick: () { checkItem(item, index); });
         },
         itemCount: items?.length,
       ),

@@ -20,7 +20,7 @@ class UseAPI {
     }
   }
 
-  Future<void> toggleItem(Item item) async {
+  Future<bool> toggleItem(Item item) async {
     var uri = Uri.parse("http://10.0.2.2:8081/items/modify");
     var response = await client.put(uri,
       headers: <String, String> {
@@ -31,5 +31,11 @@ class UseAPI {
         "checked": !item.checked,
       })
     );
+
+    if(response.statusCode == 202) {
+      return true;
+    }
+
+    return false;
   }
 }
