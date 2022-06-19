@@ -3,9 +3,13 @@ import 'package:shopping_list/services/use_api.dart';
 
 
 class CreateItemForm extends StatefulWidget {
-  const CreateItemForm({Key? key, required this.changePage}) : super(key: key);
+  CreateItemForm({Key? key, required this.changePage, this.name, this.quantity}) : super(key: key);
 
   final void Function() changePage;
+
+  String? name = "";
+  String? quantity = "";
+
   @override
   State<CreateItemForm> createState() => _CreateItemFormState();
 }
@@ -24,6 +28,7 @@ class _CreateItemFormState extends State<CreateItemForm> {
     return TextFormField(
       autofocus: true,
       decoration: const InputDecoration(labelText: "Name"),
+      initialValue: widget.name,
       validator: (String? value) {
         if (value!.isEmpty) {
           return "Name is required";
@@ -40,7 +45,7 @@ class _CreateItemFormState extends State<CreateItemForm> {
     return TextFormField(
       decoration: const InputDecoration(labelText: "Quantity"),
       keyboardType: TextInputType.number,
-      initialValue: "1",
+      initialValue: widget.quantity,
       validator: (String? value) {
         if(value!.isEmpty){
           return "Quantity can't be empty";
