@@ -39,7 +39,7 @@ class ListItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(25),
                       color: Colors.blue,
                     ),
-                    child: const Icon(Icons.check),
+                    child: const Icon(Icons.check, color: Colors.white, size: 30),
                   ),
                 ),                
                 const SizedBox(width: 16),

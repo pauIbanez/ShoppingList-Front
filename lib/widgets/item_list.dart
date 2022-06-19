@@ -3,14 +3,14 @@ import 'package:shopping_list/models/item.dart';
 import 'package:shopping_list/services/use_api.dart';
 import 'package:shopping_list/widgets/item.dart';
 
-class ItemList extends StatefulWidget {
-  const ItemList({Key? key}) : super(key: key);
+class ItemListPage extends StatefulWidget {
+  const ItemListPage({Key? key}) : super(key: key);
 
   @override
-  State<ItemList> createState() => _ItemListState();
+  State<ItemListPage> createState() => _ItemListPageState();
 }
 
-class _ItemListState extends State<ItemList> {
+class _ItemListPageState extends State<ItemListPage> {
   List<Item>? items;
   bool isLoaded = false;
 
@@ -54,17 +54,14 @@ class _ItemListState extends State<ItemList> {
       replacement: const Center(
         child: CircularProgressIndicator(),
       ),
-      child: Scaffold(
-        body: ListView.builder(
-          itemBuilder: (context, index) {
-            Item item = items![index];
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          Item item = items![index];
 
-            return ListItem(name: item.name, quantity: item.quantity.toString(), id: item.id, checked: item.checked, onClick: () { checkItem(item, index); });
-          },
-          itemCount: items?.length,
-        ),
-        floatingActionButton: const FloatingActionButton(onPressed: null, child: Icon(Icons.add)),
-      )
+          return ListItem(name: item.name, quantity: item.quantity.toString(), id: item.id, checked: item.checked, onClick: () { checkItem(item, index); });
+        },
+        itemCount: items?.length,
+      ),
     );
   }
 }
