@@ -30,7 +30,17 @@ class _ItemListState extends State<ItemList> {
         isLoaded = true;
       });
     }
-  } 
+  }
+
+  checkItem(Item item) async {
+    await UseAPI().toggleItem(item);
+
+    setState(() {
+      isLoaded = false;
+    });
+
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +51,7 @@ class _ItemListState extends State<ItemList> {
       ),
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return ListItem(name: items![index].name, quantity: items![index].quantity.toString(), id: items![index].id,);
+          return ListItem(name: items![index].name, quantity: items![index].quantity.toString(), id: items![index].id, checked: items![index].checked, onClick: () { checkItem(items![index]); });
         },
         itemCount: items?.length,
       ),

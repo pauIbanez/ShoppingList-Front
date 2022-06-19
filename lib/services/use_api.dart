@@ -1,11 +1,14 @@
 
 
+import 'dart:convert';
+
 import 'package:shopping_list/models/item.dart';
 import 'package:http/http.dart' as http;
 
 class UseAPI {
+  var client = http.Client();
+
   Future<List<Item>?> getAllItems() async {
-    var client = http.Client();
 
     var uri = Uri.parse("http://10.0.2.2:8081/items/all");
     var response = await client.get(uri);
@@ -15,5 +18,18 @@ class UseAPI {
 
       return itemFromJson(json);
     }
+  }
+
+  Future<void> toggleItem(Item item) async {
+    var uri = Uri.parse("http://10.0.2.2:8081/items/modify");
+    var response = await client.put(uri,
+      headers: <String, String> {
+        "content-type": "application/json"
+      },
+      body: jsonEncode(<String, Object>{
+        "id": item.id,
+        "checked": !item.checked,
+      })
+    );
   }
 }

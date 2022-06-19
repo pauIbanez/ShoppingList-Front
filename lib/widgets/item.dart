@@ -2,19 +2,19 @@
 import 'package:flutter/material.dart';
 
 class ListItem extends StatelessWidget {
-  const ListItem({Key? key, required this.name, required this.quantity, required this.id}) : super(key: key);
+  const ListItem({Key? key, required this.name, required this.quantity, required this.id, required this.checked, required this.onClick}) : super(key: key);
 
   final String name;
   final String quantity;
   final String id;
+  final bool checked;
+  final void Function() onClick;
 
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (() {
-        print("Tapped Item $name with Id $id");
-      }),
+      onTap: onClick,
       child: Column(
         children: [
           Container(
