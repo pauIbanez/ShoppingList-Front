@@ -52,6 +52,21 @@ class UseAPI {
     );
   }
 
+   Future<void> modifyItem(String id, String name, int quantity) async {
+    var uri = Uri.parse("http://10.0.2.2:8081/items/modify");
+    await client.put(uri,
+      headers: <String, String> {
+        "content-type": "application/json"
+      },
+      body: jsonEncode(<String, Object>{
+        "id": id,
+        "name": name,
+        "quantity": quantity,
+      })
+    );
+  }
+  
+
   Future<bool> deleteItem(String itemId) async {
     var uri = Uri.parse("http://10.0.2.2:8081/items/delete");
     var response = await client.put(uri,

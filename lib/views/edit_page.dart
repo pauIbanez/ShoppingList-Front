@@ -17,7 +17,7 @@ class _EditItemPageState extends State<EditItemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Edit Item")),
-      body: ItemForm(changePage: () => widget.changePage("list"), name: widget.item!.name, quantity: widget.item!.quantity.toString()),
+      body: ItemForm(changePage: () => widget.changePage("list"), name: widget.item!.name, quantity: widget.item!.quantity.toString(), creating: false, id: widget.item!.id),
     );
   }
 }

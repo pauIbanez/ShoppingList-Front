@@ -3,12 +3,13 @@ import 'package:shopping_list/services/use_api.dart';
 
 
 class ItemForm extends StatefulWidget {
-  const ItemForm({Key? key, required this.changePage, this.name, this.quantity, required this.creating}) : super(key: key);
+  const ItemForm({Key? key, required this.changePage, this.name, this.quantity, required this.creating, required this.id}) : super(key: key);
 
   final void Function() changePage;
   final bool creating; 
   final String? name;
   final String? quantity;
+  final String id;
 
   @override
   State<ItemForm> createState() => _ItemFormState();
@@ -96,7 +97,7 @@ class _ItemFormState extends State<ItemForm> {
                   if (widget.creating) {
                     await UseAPI().createItem(_name, int.parse(_quantity));
                   } else {
-                    await UseAPI().modifyItem(_name, int.parse(_quantity));
+                    await UseAPI().modifyItem(widget.id, _name, int.parse(_quantity));
                   }
 
                   setState(() {

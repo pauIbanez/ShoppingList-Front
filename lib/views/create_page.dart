@@ -15,7 +15,7 @@ class _CreateItemPageState extends State<CreateItemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("New Item")),
-      body: ItemForm(changePage: widget.changePage),
+      body: ItemForm(changePage: widget.changePage, creating: true, id: "",),
     );
   }
 }
