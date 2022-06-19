@@ -54,14 +54,17 @@ class _ItemListState extends State<ItemList> {
       replacement: const Center(
         child: CircularProgressIndicator(),
       ),
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          Item item = items![index];
+      child: Scaffold(
+        body: ListView.builder(
+          itemBuilder: (context, index) {
+            Item item = items![index];
 
-          return ListItem(name: item.name, quantity: item.quantity.toString(), id: item.id, checked: item.checked, onClick: () { checkItem(item, index); });
-        },
-        itemCount: items?.length,
-      ),
+            return ListItem(name: item.name, quantity: item.quantity.toString(), id: item.id, checked: item.checked, onClick: () { checkItem(item, index); });
+          },
+          itemCount: items?.length,
+        ),
+        floatingActionButton: const FloatingActionButton(onPressed: null, child: Icon(Icons.add)),
+      )
     );
   }
 }
