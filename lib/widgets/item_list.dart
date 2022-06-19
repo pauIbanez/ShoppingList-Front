@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:shopping_list/models/item.dart';
 import 'package:shopping_list/services/use_api.dart';
+import 'package:shopping_list/widgets/item.dart';
 
 class ItemList extends StatefulWidget {
   const ItemList({Key? key}) : super(key: key);
@@ -42,52 +41,7 @@ class _ItemListState extends State<ItemList> {
       ),
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return Column(
-              children: [
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.only(top: 10, bottom: 10, left: 16, right: 16),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          color: Colors.grey[300],
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                             items![index].name,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style:  const TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text("Quantity: ${items![index].quantity}")
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 1,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(2),
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            );
+          return ListItem(name: items![index].name, quantity: items![index].quantity.toString());
         },
         itemCount: items?.length,
       ),
