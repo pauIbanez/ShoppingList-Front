@@ -37,10 +37,12 @@ class _ItemListState extends State<ItemList> {
   Widget build(BuildContext context) {
     return Visibility(
       visible: isLoaded,
+      replacement: const Center(
+        child: CircularProgressIndicator(),
+      ),
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return Container(
-            child: Column(
+          return Column(
               children: [
                 Container(
                   width: double.infinity,
@@ -55,7 +57,7 @@ class _ItemListState extends State<ItemList> {
                           color: Colors.grey[300],
                         ),
                       ),
-                      SizedBox(width: 16),
+                      const SizedBox(width: 16),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,12 +66,12 @@ class _ItemListState extends State<ItemList> {
                              items![index].name,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style:  TextStyle(
+                              style:  const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Text("Quantity: " + items![index].quantity.toString())
+                            Text("Quantity: ${items![index].quantity}")
                           ],
                         ),
                       ),
@@ -85,12 +87,10 @@ class _ItemListState extends State<ItemList> {
                   ),
                 ),
               ],
-            ),
-          );
+            );
         },
         itemCount: items?.length,
       ),
-      replacement: const Center(child: CircularProgressIndicator(),),
     );
   }
 }
