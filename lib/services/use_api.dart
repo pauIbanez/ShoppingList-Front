@@ -22,7 +22,7 @@ class UseAPI {
 
   Future<bool> toggleItem(Item item) async {
     var uri = Uri.parse("http://10.0.2.2:8081/items/modify");
-    var response = await client.put(uri,
+    var response = await client.patch(uri,
       headers: <String, String> {
         "content-type": "application/json"
       },
@@ -41,7 +41,7 @@ class UseAPI {
 
   Future<void> createItem(String name, int quantity) async {
     var uri = Uri.parse("http://10.0.2.2:8081/items/create");
-    await client.put(uri,
+    await client.post(uri,
       headers: <String, String> {
         "content-type": "application/json"
       },
@@ -69,7 +69,7 @@ class UseAPI {
 
   Future<bool> deleteItem(String itemId) async {
     var uri = Uri.parse("http://10.0.2.2:8081/items/delete");
-    var response = await client.put(uri,
+    var response = await client.delete(uri,
       headers: <String, String> {
         "content-type": "application/json"
       },
