@@ -17,22 +17,20 @@ class _ItemListState extends State<ItemList> {
         itemBuilder: (context, index) {
           return Container(
             padding: const EdgeInsets.all(16),
-            child: Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Item Name",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style:  TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Item Name",
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style:  TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Text("Quantity: 2")
-                ],
-              ),
+                ),
+                Text("Quantity: 2")
+              ],
             ),
           );
         },
