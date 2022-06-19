@@ -41,7 +41,7 @@ class _ItemListState extends State<ItemList> {
       ),
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return ListItem(name: items![index].name, quantity: items![index].quantity.toString());
+          return ListItem(name: items![index].name, quantity: items![index].quantity.toString(), id: items![index].id,);
         },
         itemCount: items?.length,
       ),
