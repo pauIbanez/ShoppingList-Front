@@ -17,6 +17,8 @@ class _CreateItemFormState extends State<CreateItemForm> {
   String _name = "";
   int _quantity = 1;
 
+  bool _isLoading = false;
+
 
   Widget _buildNameField() {
     return TextFormField(
@@ -59,33 +61,47 @@ class _CreateItemFormState extends State<CreateItemForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(50),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            _buildNameField(),
-            const SizedBox(height: 20),
-            _buildQuantityField(),
-            const SizedBox(height: 200),
-            ElevatedButton(
-              onPressed: (() async {
-                if(!_formKey.currentState!.validate()){
-                  return;
-                }
+    return Visibility(
+      visible: !_isLoading,
+      replacement: const Center(
+        child: CircularProgressIndicator(),
+      ),
+      child: Container(
+        margin: const EdgeInsets.all(50),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              _buildNameField(),
+              const SizedBox(height: 20),
+              _buildQuantityField(),
+              const SizedBox(height: 200),
+              ElevatedButton(
+                onPressed: (() async {
+                  if(!_formKey.currentState!.validate()){
+                    return;
+                  }
 
-                _formKey.currentState!.save();
+                  _formKey.currentState!.save();
+                  
+                  setState(() {
+                    _isLoading = true;
+                  });
 
-                await UseAPI().createItem(_name, _quantity);
+                  await UseAPI().createItem(_name, _quantity);
 
-                widget.changePage();
-              }),
-              child: const Text("Create", style: TextStyle(color: Colors.white))
-            )
-          ],
+                  setState(() {
+                    _isLoading = false;
+                  });
+
+                  widget.changePage();
+                }),
+                child: const Text("Create", style: TextStyle(color: Colors.white))
+              )
+            ],
+          )
         )
-      )
+      ),
     );
   }
 }
