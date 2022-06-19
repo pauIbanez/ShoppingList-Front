@@ -1,14 +1,17 @@
 
 import 'package:flutter/material.dart';
+import 'package:shopping_list/widgets/popup_menu.dart';
 
 class ListItem extends StatelessWidget {
-  const ListItem({Key? key, required this.name, required this.quantity, required this.id, required this.checked, required this.onClick}) : super(key: key);
+  const ListItem({Key? key, required this.name, required this.quantity, required this.id, required this.checked, required this.onClick, required this.onDelete, required this.onEdit}) : super(key: key);
 
   final String name;
   final String quantity;
   final String id;
   final bool checked;
   final void Function() onClick;
+  final void Function() onDelete;
+  final void Function() onEdit;
 
 
   @override
@@ -60,6 +63,7 @@ class ListItem extends StatelessWidget {
                     ],
                   ),
                 ),
+                ItemPopupMenu(onDelete: onDelete, onEdit: onEdit)
               ],
             ),
           ),

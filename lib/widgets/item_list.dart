@@ -44,8 +44,8 @@ class _ItemListState extends State<ItemList> {
         items![itemIndex].checked = !items![itemIndex].checked;
       });
     }
-    
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class _ItemListState extends State<ItemList> {
         itemBuilder: (context, index) {
           Item item = items![index];
 
-          return ListItem(name: item.name, quantity: item.quantity.toString(), id: item.id, checked: item.checked, onClick: () { checkItem(item, index); });
+          return ListItem(name: item.name, quantity: item.quantity.toString(), id: item.id, checked: item.checked, onClick: () { checkItem(item, index); }, onDelete: (){}, onEdit: (){},);
         },
         itemCount: items?.length,
       ),
