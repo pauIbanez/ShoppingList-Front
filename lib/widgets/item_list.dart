@@ -68,7 +68,7 @@ class _ItemListState extends State<ItemList> {
         itemBuilder: (context, index) {
           Item item = items![index];
 
-          return ListItem(name: item.name, quantity: item.quantity.toString(), id: item.id, checked: item.checked, onClick: () { checkItem(item, index); }, onDelete: () { deleteItem(item.id, index) }, onEdit: (){},);
+          return ListItem(name: item.name, quantity: item.quantity.toString(), id: item.id, checked: item.checked, onClick: () { checkItem(item, index); }, onDelete: () { deleteItem(item.id, index); }, onEdit: (){},);
         },
         itemCount: items?.length,
       ),
