@@ -2,24 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:shopping_list/services/use_api.dart';
 
 
-class CreateItemForm extends StatefulWidget {
-  CreateItemForm({Key? key, required this.changePage, this.name, this.quantity}) : super(key: key);
+class ItemForm extends StatefulWidget {
+  const ItemForm({Key? key, required this.changePage, this.name, this.quantity, required this.creating}) : super(key: key);
 
   final void Function() changePage;
-
-  String? name = "";
-  String? quantity = "";
+  final bool creating; 
+  final String? name;
+  final String? quantity;
 
   @override
-  State<CreateItemForm> createState() => _CreateItemFormState();
+  State<ItemForm> createState() => _ItemFormState();
 }
 
-class _CreateItemFormState extends State<CreateItemForm> {
+class _ItemFormState extends State<ItemForm> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String _name = "";
-  int _quantity = 1;
+  String _quantity = "1";
 
   bool _isLoading = false;
 
@@ -45,7 +45,7 @@ class _CreateItemFormState extends State<CreateItemForm> {
     return TextFormField(
       decoration: const InputDecoration(labelText: "Quantity"),
       keyboardType: TextInputType.number,
-      initialValue: widget.quantity,
+      initialValue: widget.quantity ?? "1",
       validator: (String? value) {
         if(value!.isEmpty){
           return "Quantity can't be empty";
@@ -59,7 +59,7 @@ class _CreateItemFormState extends State<CreateItemForm> {
           return "Quantity must be a number";
         }
 
-        _quantity =  int.tryParse(value) ?? 1;
+        _quantity = value;
       },
     );
   }
@@ -93,7 +93,11 @@ class _CreateItemFormState extends State<CreateItemForm> {
                     _isLoading = true;
                   });
 
-                  await UseAPI().createItem(_name, _quantity);
+                  if (widget.creating) {
+                    await UseAPI().createItem(_name, int.parse(_quantity));
+                  } else {
+                    await UseAPI().modifyItem(_name, int.parse(_quantity));
+                  }
 
                   setState(() {
                     _isLoading = false;
@@ -101,7 +105,7 @@ class _CreateItemFormState extends State<CreateItemForm> {
 
                   widget.changePage();
                 }),
-                child: const Text("Create", style: TextStyle(color: Colors.white))
+                child: Text(widget.creating ? "Create" : "Update", style: const TextStyle(color: Colors.white))
               )
             ],
           )

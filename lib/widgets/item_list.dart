@@ -4,7 +4,9 @@ import 'package:shopping_list/services/use_api.dart';
 import 'package:shopping_list/widgets/item.dart';
 
 class ItemList extends StatefulWidget {
-  const ItemList({Key? key}) : super(key: key);
+  const ItemList({Key? key, required this.changePage}) : super(key: key);
+
+  final void Function(String, [Item?]) changePage;
 
   @override
   State<ItemList> createState() => _ItemListState();
@@ -68,7 +70,7 @@ class _ItemListState extends State<ItemList> {
         itemBuilder: (context, index) {
           Item item = items![index];
 
-          return ListItem(name: item.name, quantity: item.quantity.toString(), id: item.id, checked: item.checked, onClick: () { checkItem(item, index); }, onDelete: () { deleteItem(item.id, index); }, onEdit: (){},);
+          return ListItem(name: item.name, quantity: item.quantity.toString(), id: item.id, checked: item.checked, onClick: () { checkItem(item, index); }, onDelete: () { deleteItem(item.id, index); }, onEdit: (){ widget.changePage("edit", item);},);
         },
         itemCount: items?.length,
       ),

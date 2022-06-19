@@ -1,7 +1,9 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:shopping_list/models/item.dart';
 import 'package:shopping_list/views/create_page.dart';
+import 'package:shopping_list/views/edit_page.dart';
 import 'package:shopping_list/views/list_page.dart';
 
 void main() {
@@ -18,10 +20,12 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
 
   String currentPage = "list";
+  Item? currentItem;
 
-  changePage(String page) {
+  changePage(String page, [Item? item]) {
     setState(() {
       currentPage = page;
+      currentItem = item;
     });
   }
 
@@ -36,8 +40,13 @@ class _MyAppState extends State<MyApp> {
       case "create":
         currentPageWidget = CreateItemPage(changePage: () => changePage("list"),);
         break;
+      
+      case "edit":
+        currentPageWidget = EditItemPage(changePage: changePage, item: currentItem);
+        break;
+
       default:
-        currentPageWidget = ListPage(changePage: () => changePage("create"));
+        currentPageWidget = ListPage(changePage: changePage);
     }
 
     return MaterialApp(
