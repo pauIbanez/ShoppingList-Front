@@ -22,14 +22,26 @@ class ListItem extends StatelessWidget {
             padding: const EdgeInsets.only(top: 10, bottom: 10, left: 16, right: 16),
             child: Row(
               children: [
-                Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    color: Colors.grey[300],
+                Visibility(
+                  visible: checked,
+                  replacement: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      color: Colors.grey[300],
+                    ),
                   ),
-                ),
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      color: Colors.blue,
+                    ),
+                    child: const Icon(Icons.check),
+                  ),
+                ),                
                 const SizedBox(width: 16),
                 Expanded(
                   child: Column(

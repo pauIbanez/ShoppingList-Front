@@ -26,6 +26,9 @@ class _ItemListState extends State<ItemList> {
     items = await UseAPI().getAllItems();
 
     if(items != null) {
+
+      items?.sort((a, b) => a.name.compareTo(b.name));
+
       setState(() {
         isLoaded = true;
       });
@@ -33,6 +36,8 @@ class _ItemListState extends State<ItemList> {
   }
 
   checkItem(Item item) async {
+
+    print(item.name);
     await UseAPI().toggleItem(item);
 
     setState(() {
@@ -51,7 +56,9 @@ class _ItemListState extends State<ItemList> {
       ),
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return ListItem(name: items![index].name, quantity: items![index].quantity.toString(), id: items![index].id, checked: items![index].checked, onClick: () { checkItem(items![index]); });
+          Item item = items![index];
+
+          return ListItem(name: item.name, quantity: item.quantity.toString(), id: item.id, checked: item.checked, onClick: () { checkItem(item); });
         },
         itemCount: items?.length,
       ),
