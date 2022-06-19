@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:shopping_list/models/item.dart';
+import 'package:shopping_list/services/use_api.dart';
 
 class ItemList extends StatefulWidget {
   const ItemList({Key? key}) : super(key: key);
@@ -10,9 +12,31 @@ class ItemList extends StatefulWidget {
 }
 
 class _ItemListState extends State<ItemList> {
+  List<Item>? items;
+  bool isLoaded = false;
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    getData();
+  }
+
+  getData() async {
+    items = await UseAPI().getAllItems();
+
+    if(items != null) {
+      setState(() {
+        isLoaded = true;
+      });
+    }
+  } 
+
   @override
   Widget build(BuildContext context) {
     return Visibility(
+      visible: isLoaded,
       child: ListView.builder(
         itemBuilder: (context, index) {
           return Container(
@@ -37,7 +61,7 @@ class _ItemListState extends State<ItemList> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Item Name",
+                             items![index].name,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style:  TextStyle(
@@ -45,7 +69,7 @@ class _ItemListState extends State<ItemList> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Text("Quantity: 2")
+                            Text("Quantity: " + items![index].quantity.toString())
                           ],
                         ),
                       ),
@@ -64,7 +88,7 @@ class _ItemListState extends State<ItemList> {
             ),
           );
         },
-        itemCount: 30,
+        itemCount: items?.length,
       ),
       replacement: const Center(child: CircularProgressIndicator(),),
     );

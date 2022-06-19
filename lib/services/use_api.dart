@@ -7,7 +7,7 @@ class UseAPI {
   Future<List<Item>?> getAllItems() async {
     var client = http.Client();
 
-    var uri = Uri.parse("http://localhost:8081/items/all");
+    var uri = Uri.parse("http://10.0.2.2:8081/items/all");
     var response = await client.get(uri);
 
     if(response.statusCode == 200){
