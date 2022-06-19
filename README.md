@@ -1,16 +1,15 @@
-# shopping_list
+# Shopping_list
 
-A new Flutter project.
+A simple Flutter App that allows you to list an Item and a quantity of it. It allows you to check anj item of the list, edit it or delete it.
 
-## Getting Started
+All the item information is stored in a server so that you can use this app across multiple devices and share your shopping list, tho, with absolutley everyone.
 
-This project is a starting point for a Flutter application.
+## What I leanerd
 
-A few resources to get you started if this is your first Flutter project:
+- More in depth contact with stateful and stateless wisgets, API calls with `get`, `post`, `patch`, put and `delete` methods.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Page management, and simple routing.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Popup menus.
+
+- Forms and reusing forms.
