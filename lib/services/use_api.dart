@@ -51,4 +51,22 @@ class UseAPI {
       })
     );
   }
+
+  Future<bool> deleteItem(String itemId) async {
+    var uri = Uri.parse("http://10.0.2.2:8081/items/delete");
+    var response = await client.put(uri,
+      headers: <String, String> {
+        "content-type": "application/json"
+      },
+      body: jsonEncode(<String, Object>{
+        "id": itemId,
+      })
+    );
+
+    if(response.statusCode == 200) {
+      return true;
+    }
+
+    return false;
+  }
 }
