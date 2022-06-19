@@ -26,11 +26,26 @@ class _ItemListState extends State<ItemList> {
     items = await UseAPI().getAllItems();
 
     if(items != null) {
+
+      items?.sort((a, b) => a.name.compareTo(b.name));
+
       setState(() {
         isLoaded = true;
       });
     }
-  } 
+  }
+
+  checkItem(Item item, int itemIndex) async {
+
+    bool sucessfull = await UseAPI().toggleItem(item);
+
+    if (sucessfull) {
+      setState(() {
+        items![itemIndex].checked = !items![itemIndex].checked;
+      });
+    }
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +56,9 @@ class _ItemListState extends State<ItemList> {
       ),
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return ListItem(name: items![index].name, quantity: items![index].quantity.toString(), id: items![index].id,);
+          Item item = items![index];
+
+          return ListItem(name: item.name, quantity: item.quantity.toString(), id: item.id, checked: item.checked, onClick: () { checkItem(item, index); });
         },
         itemCount: items?.length,
       ),
