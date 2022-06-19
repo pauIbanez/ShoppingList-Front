@@ -3,14 +3,14 @@ import 'package:shopping_list/models/item.dart';
 import 'package:shopping_list/services/use_api.dart';
 import 'package:shopping_list/widgets/item.dart';
 
-class ItemListPage extends StatefulWidget {
-  const ItemListPage({Key? key}) : super(key: key);
+class ItemList extends StatefulWidget {
+  const ItemList({Key? key}) : super(key: key);
 
   @override
-  State<ItemListPage> createState() => _ItemListPageState();
+  State<ItemList> createState() => _ItemListState();
 }
 
-class _ItemListPageState extends State<ItemListPage> {
+class _ItemListState extends State<ItemList> {
   List<Item>? items;
   bool isLoaded = false;
 

@@ -1,32 +1,18 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:shopping_list/views/create_page.dart';
 import 'package:shopping_list/widgets/item_list.dart';
 
-class ListPage extends StatefulWidget {
-  const ListPage({Key? key}) : super(key: key);
 
-  @override
-  State<ListPage> createState() => _ListPageState();
-}
+class ListPage extends StatelessWidget {
+  const ListPage({Key? key, required this.changePage}) : super(key: key);
 
-class _ListPageState extends State<ListPage> {
-
-  bool create = false;
-
-  gotoCreateItem() {
-    setState(() {
-      create = true;
-    });
-  }
+  final void Function(String) changePage;
 
    @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Shopping List")),
-      body: !create ? const ItemListPage() : const CreateItemPage(),
-      floatingActionButton: !create ? FloatingActionButton(onPressed: gotoCreateItem, child: const Icon(Icons.add, color: Colors.white, size: 40,),) : Container(),
+      body: const ItemList(),
+      floatingActionButton: FloatingActionButton(onPressed: () => changePage("create"), child: const Icon(Icons.add, color: Colors.white, size: 40,),),
     );
   }
 }
