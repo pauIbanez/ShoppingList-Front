@@ -22,8 +22,8 @@ class ItemPopupMenu extends StatelessWidget {
         PopupMenuItem(
           onTap: onDelete,
           child: const ListTile(
-            leading: Icon(Icons.delete, size: 20, color: Colors.black,),
-            title: Text("Delete"),
+            leading: Icon(Icons.delete, size: 20, color: Colors.red,),
+            title: Text("Delete", style: TextStyle(color: Colors.red)),
           )
         ),
       ])
